@@ -1,3 +1,71 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Bender';
+  src: url('./fonts/Jovanny Lemonad - Bender-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bender';
+  src: url('./fonts/Jovanny Lemonad - Bender-BlackItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Bender';
+  src: url('./fonts/Jovanny Lemonad - Bender-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bender';
+  src: url('./fonts/Jovanny Lemonad - Bender-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Bender';
+  src: url('./fonts/Jovanny Lemonad - Bender-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Bender';
+  src: url('./fonts/Jovanny Lemonad - Bender-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bender';
+  src: url('./fonts/Jovanny Lemonad - Bender-LightItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Bender';
+  src: url('./fonts/Jovanny Lemonad - Bender.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Global styles */
+body {
+  @apply font-bender;
+  background: #000;
+  color: #9a8866;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+}
+
+/* Add the rest of your CSS here */
