@@ -38,7 +38,7 @@ const ItemList = () => {
   };
 
   return (
-    <div className="p-4 text-white w-80p w-fill-available">
+    <div className="p-4 text-white w-80p">
       <ItemListNavbar onCategorySelect={filterByCategory} />
       <h1 className="text-2xl font-bold my-4">Item List</h1>
       <div className="mb-4">

@@ -42,7 +42,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="p-4 w-80p w-fill-available">
+    <nav className="p-4 w-80p">
       <div className="border-t border-b border-light-gray">
         <div className="flex items-center justify-between py-1">
           <div className="flex items-center">
