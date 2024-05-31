@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useEffect, useState } from 'react';
 
 const Navbar = () => {
@@ -43,37 +42,39 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex items-center justify-between">
-        <div className="flex items-center">
-          <div className="text-left flex flex-col justify-center">
-            <h1 className="text-white text-2xl font-medium">Arena Breakout Market</h1>
-            <p className="text-white font-normal">Flea market price monitoring and tools</p>
-          </div>
-          <div className="flex flex-col justify-center ml-8">
-            <div className="flex flex-row gap-2 text-left">
-              <span className="text-white w-16 font-medium">{dayTime}</span>
-              <span className="text-white w-16 font-medium">{nightTime}</span>
+    <nav className="bg-black p-4 max-w-screen-2xl w-fill-available">
+      <div className="border-t border-b border-gray-700">
+        <div className="flex items-center justify-between py-1">
+          <div className="flex items-center">
+            <div className="text-left flex flex-col justify-center">
+              <h1 className="text-white text-2xl font-medium">Arena Breakout Market</h1>
+              <p className="text-white font-normal">Flea market price monitoring and tools</p>
             </div>
-            <span className="text-white text-left">Raid Time</span>
+            <div className="flex flex-col justify-center ml-8">
+              <div className="flex flex-row gap-2 text-left">
+                <span className="text-white w-16 font-medium">{dayTime}</span>
+                <span className="text-white w-16 font-medium">{nightTime}</span>
+              </div>
+              <span className="text-white text-left">Raid Time</span>
+            </div>
           </div>
+          <ul className="flex space-x-4">
+            <li className="relative group">
+              <a href="/" className="text-white">Home</a>
+              <ul className="absolute left-0 hidden mt-2 space-y-2 bg-gray-800 text-white p-2 rounded group-hover:block">
+                <li><a href="/" className="block px-4 py-2">Submenu 1</a></li>
+                <li><a href="/" className="block px-4 py-2">Submenu 2</a></li>
+              </ul>
+            </li>
+            <li className="relative group">
+              <a href="/items" className="text-white">Items</a>
+              <ul className="absolute left-0 hidden mt-2 space-y-2 bg-gray-800 text-white p-2 rounded group-hover:block">
+                <li><a href="/items" className="block px-4 py-2">Submenu 1</a></li>
+                <li><a href="/items" className="block px-4 py-2">Submenu 2</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
-        <ul className="flex space-x-4">
-          <li className="relative group">
-            <a href="/" className="text-white">Home</a>
-            <ul className="absolute left-0 hidden mt-2 space-y-2 bg-gray-800 text-white p-2 rounded group-hover:block">
-              <li><a href="/" className="block px-4 py-2">Submenu 1</a></li>
-              <li><a href="/" className="block px-4 py-2">Submenu 2</a></li>
-            </ul>
-          </li>
-          <li className="relative group">
-            <a href="/items" className="text-white">Items</a>
-            <ul className="absolute left-0 hidden mt-2 space-y-2 bg-gray-800 text-white p-2 rounded group-hover:block">
-              <li><a href="/items" className="block px-4 py-2">Submenu 1</a></li>
-              <li><a href="/items" className="block px-4 py-2">Submenu 2</a></li>
-            </ul>
-          </li>
-        </ul>
       </div>
     </nav>
   );

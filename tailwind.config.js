@@ -4,6 +4,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      width: {
+        'fill-available': '-webkit-fill-available',
+      },
       fontFamily: {
         'bender': ['Bender', 'sans-serif'],
       },

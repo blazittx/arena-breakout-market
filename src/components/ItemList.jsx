@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import ItemListNavbar from './ItemListNavbar';
 
 const ItemList = () => {
   const [items, setItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
 
   useEffect(() => {
     const fetchItems = async () => {
       const response = await fetch('/.netlify/functions/fetch-items');
       const data = await response.json();
       setItems(data.items);
+      setFilteredItems(data.items);
     };
 
     fetchItems();
   }, []);
 
   const sortItems = (type) => {
-    const sortedItems = [...items].sort((a, b) => {
+    const sortedItems = [...filteredItems].sort((a, b) => {
       if (type === 'price-asc') {
         return a.item_price - b.item_price;
       } else if (type === 'price-desc') {
@@ -22,41 +25,51 @@ const ItemList = () => {
       }
       return 0;
     });
-    setItems(sortedItems);
+    setFilteredItems(sortedItems);
+  };
+
+  const filterByCategory = (category) => {
+    if (category === 'All') {
+      setFilteredItems(items);
+    } else {
+      const filtered = items.filter(item => item.item_type === category);
+      setFilteredItems(filtered);
+    }
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="p-4 bg-black text-white max-w-screen-2xl">
+      <ItemListNavbar onCategorySelect={filterByCategory} />
       <h1 className="text-2xl font-bold my-4">Item List</h1>
       <div className="mb-4">
         <button
           onClick={() => sortItems('price-desc')}
-          className="mr-2 bg-blue-500 text-white py-2 px-4 rounded"
+          className="mr-2 bg-transparent border border-gray-700 text-white py-2 px-4 rounded hover:bg-gray-700"
         >
           Sort by Price Descending
         </button>
         <button
           onClick={() => sortItems('price-asc')}
-          className="bg-blue-500 text-white py-2 px-4 rounded"
+          className="bg-transparent border border-gray-700 text-white py-2 px-4 rounded hover:bg-gray-700"
         >
           Sort by Price Ascending
         </button>
       </div>
-      <table className="min-w-full bg-white shadow-md rounded">
+      <table className="min-w-full bg-transparent text-white shadow-md rounded">
         <thead>
           <tr>
-            <th className="py-2 px-4 bg-gray-200">Image</th>
-            <th className="py-2 px-4 bg-gray-200">Name</th>
-            <th className="py-2 px-4 bg-gray-200">Price</th>
-            <th className="py-2 px-4 bg-gray-200">Type</th>
-            <th className="py-2 px-4 bg-gray-200">Hitpoints</th>
-            <th className="py-2 px-4 bg-gray-200">Armor Class</th>
+            <th className="py-2 px-4 border-b border-gray-700">Image</th>
+            <th className="py-2 px-4 border-b border-gray-700">Name</th>
+            <th className="py-2 px-4 border-b border-gray-700">Price</th>
+            <th className="py-2 px-4 border-b border-gray-700">Type</th>
+            <th className="py-2 px-4 border-b border-gray-700">Hitpoints</th>
+            <th className="py-2 px-4 border-b border-gray-700">Armor Class</th>
           </tr>
         </thead>
         <tbody>
-          {items.map((item) => (
-            <tr key={item.item_id} className="border-b">
-              <td className="py-2 px-4"><img src={item.item_image} alt={item.item_name} className="w-16 h-16 object-cover" /></td>
+          {filteredItems.map((item) => (
+            <tr key={item.item_id} className="border-b border-gray-700">
+              <td className="py-2 px-4"><img src={item.item_image} alt={item.item_name} className="w-16 h-16 object-cover rounded" /></td>
               <td className="py-2 px-4">{item.item_name}</td>
               <td className="py-2 px-4">{item.item_price}</td>
               <td className="py-2 px-4">{item.item_type}</td>
