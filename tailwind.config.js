@@ -13,6 +13,12 @@ module.exports = {
         'bold': 700,
         'black': 900,
       },
+      colors: {
+        'dark-gray': '#1a1a1a',
+        'light-gray': '#2e2e2e',
+        'primary': '#e3342f',
+        'secondary': '#f6993f',
+      },
     },
   },
   plugins: [],
