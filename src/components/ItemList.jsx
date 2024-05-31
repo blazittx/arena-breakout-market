@@ -1,62 +1,67 @@
-// src/components/ItemList.jsx
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const ItemList = () => {
   const [items, setItems] = useState([]);
-  const [sortType, setSortType] = useState('price-desc'); // default sorting by price descending
 
   useEffect(() => {
+    const fetchItems = async () => {
+      const response = await fetch('/.netlify/functions/fetch-items');
+      const data = await response.json();
+      setItems(data.items);
+    };
+
     fetchItems();
   }, []);
 
-  const fetchItems = async () => {
-    try {
-      const response = await axios.get('YOUR_ORACLE_REST_ENDPOINT/items/all');
-      setItems(response.data.items);
-    } catch (error) {
-      console.error('Error fetching items:', error);
-    }
-  };
-
   const sortItems = (type) => {
-    const sortedItems = [...items];
-    if (type === 'price-desc') {
-      sortedItems.sort((a, b) => b.item_price - a.item_price);
-    } else if (type === 'price-asc') {
-      sortedItems.sort((a, b) => a.item_price - b.item_price);
-    }
+    const sortedItems = [...items].sort((a, b) => {
+      if (type === 'price-asc') {
+        return a.item_price - b.item_price;
+      } else if (type === 'price-desc') {
+        return b.item_price - a.item_price;
+      }
+      return 0;
+    });
     setItems(sortedItems);
-    setSortType(type);
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold my-4">Item List</h1>
       <div className="mb-4">
-        <button onClick={() => sortItems('price-desc')} className="mr-2">Sort by Price Descending</button>
-        <button onClick={() => sortItems('price-asc')}>Sort by Price Ascending</button>
+        <button
+          onClick={() => sortItems('price-desc')}
+          className="mr-2 bg-blue-500 text-white py-2 px-4 rounded"
+        >
+          Sort by Price Descending
+        </button>
+        <button
+          onClick={() => sortItems('price-asc')}
+          className="bg-blue-500 text-white py-2 px-4 rounded"
+        >
+          Sort by Price Ascending
+        </button>
       </div>
-      <table className="min-w-full bg-white">
+      <table className="min-w-full bg-white shadow-md rounded">
         <thead>
           <tr>
-            <th className="py-2">Image</th>
-            <th className="py-2">Name</th>
-            <th className="py-2">Price</th>
-            <th className="py-2">Type</th>
-            <th className="py-2">Hitpoints</th>
-            <th className="py-2">Armor Class</th>
+            <th className="py-2 px-4 bg-gray-200">Image</th>
+            <th className="py-2 px-4 bg-gray-200">Name</th>
+            <th className="py-2 px-4 bg-gray-200">Price</th>
+            <th className="py-2 px-4 bg-gray-200">Type</th>
+            <th className="py-2 px-4 bg-gray-200">Hitpoints</th>
+            <th className="py-2 px-4 bg-gray-200">Armor Class</th>
           </tr>
         </thead>
         <tbody>
           {items.map((item) => (
-            <tr key={item.item_id}>
-              <td className="py-2"><img src={item.item_image} alt={item.item_name} className="w-16 h-16 object-cover" /></td>
-              <td className="py-2">{item.item_name}</td>
-              <td className="py-2">{item.item_price}</td>
-              <td className="py-2">{item.item_type}</td>
-              <td className="py-2">{item.hitpoints}</td>
-              <td className="py-2">{item.armor_class}</td>
+            <tr key={item.item_id} className="border-b">
+              <td className="py-2 px-4"><img src={item.item_image} alt={item.item_name} className="w-16 h-16 object-cover" /></td>
+              <td className="py-2 px-4">{item.item_name}</td>
+              <td className="py-2 px-4">{item.item_price}</td>
+              <td className="py-2 px-4">{item.item_type}</td>
+              <td className="py-2 px-4">{item.hitpoints}</td>
+              <td className="py-2 px-4">{item.armor_class}</td>
             </tr>
           ))}
         </tbody>
