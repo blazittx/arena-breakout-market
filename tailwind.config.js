@@ -5,6 +5,7 @@ module.exports = {
   theme: {
     extend: {
       width: {
+        '80p': '80%', // Add this line
         'fill-available': '-webkit-fill-available',
       },
       fontFamily: {
