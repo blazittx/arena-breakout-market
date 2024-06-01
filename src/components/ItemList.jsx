@@ -71,8 +71,8 @@ const ItemList = () => {
           Sort by Price
         </button>
       </div>
-      <div className="grid grid-cols-1 gap-0.5 bg-dark p-2">
-        <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr] gap-0.5 bg-light-gray py-2">
+      <div className="grid grid-cols-1 gap-0.5 bg-dark">
+        <div className="grid grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr] gap-0.5 bg-light-gray">
           <div className="text-center cursor-pointer" onClick={() => sortItems('item_image')}>Image</div>
           <div className="text-center cursor-pointer" onClick={() => sortItems('item_name')}>Name</div>
           <div className="text-center cursor-pointer" onClick={() => sortItems('item_price')}>Price</div>
@@ -81,7 +81,7 @@ const ItemList = () => {
           <div className="text-center cursor-pointer" onClick={() => sortItems('armor_class')}>Armor Class</div>
         </div>
         {filteredItems.map((item) => (
-          <div key={item.item_id} className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr] gap-0.5 items-center">
+          <div key={item.item_id} className="grid grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr] gap-0.5 items-center">
             <div className="flex justify-center bg-dark-gray">
               <img src={item.item_image} alt={item.item_name} className="h-24 w-full object-contain" />
             </div>
