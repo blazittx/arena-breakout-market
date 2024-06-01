@@ -73,10 +73,10 @@ const ItemList = () => {
       </div>
       <div className="grid grid-cols-1 gap-0.5 bg-dark">
         <div className="grid grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr] gap-0.5 bg-light-gray">
-          <div className="text-center cursor-pointer" onClick={() => sortItems('item_image')}>Image</div>
+          <div className="text-center">Image</div>
           <div className="text-center cursor-pointer" onClick={() => sortItems('item_name')}>Name</div>
           <div className="text-center cursor-pointer" onClick={() => sortItems('item_price')}>Price</div>
-          <div className="text-center cursor-pointer" onClick={() => sortItems('item_type')}>Type</div>
+          <div className="text-center cursor-pointer" onClick={() => sortItems('item_type')}>Type</div> 
           <div className="text-center cursor-pointer" onClick={() => sortItems('hitpoints')}>Hitpoints</div>
           <div className="text-center cursor-pointer" onClick={() => sortItems('armor_class')}>Armor Class</div>
         </div>
