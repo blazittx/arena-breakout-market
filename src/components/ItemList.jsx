@@ -5,7 +5,7 @@ const ItemList = () => {
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [sortConfig, setSortConfig] = useState({ key: 'item_price', direction: 'asc' });
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -18,12 +18,18 @@ const ItemList = () => {
     fetchItems();
   }, []);
 
-  const sortItems = (type) => {
+  const sortItems = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
     const sortedItems = [...filteredItems].sort((a, b) => {
-      if (type === 'price-asc') {
-        return a.item_price - b.item_price;
-      } else if (type === 'price-desc') {
-        return b.item_price - a.item_price;
+      if (a[key] < b[key]) {
+        return direction === 'asc' ? -1 : 1;
+      }
+      if (a[key] > b[key]) {
+        return direction === 'asc' ? 1 : -1;
       }
       return 0;
     });
@@ -49,7 +55,6 @@ const ItemList = () => {
   };
 
   const handleSearch = (query) => {
-    setSearchQuery(query);
     const filtered = items.filter(item => item.item_name.toLowerCase().includes(query.toLowerCase()));
     setFilteredItems(filtered);
   };
@@ -60,31 +65,25 @@ const ItemList = () => {
       <h1 className="text-2xl font-bold my-4">Item List</h1>
       <div className="mb-4">
         <button
-          onClick={() => sortItems('price-desc')}
+          onClick={() => sortItems('item_price')}
           className="mr-2 bg-transparent border border-light-gray text-white py-2 px-4 hover:bg-light-gray"
         >
-          Sort by Price Descending
-        </button>
-        <button
-          onClick={() => sortItems('price-asc')}
-          className="bg-transparent border border-light-gray text-white py-2 px-4 hover:bg-light-gray"
-        >
-          Sort by Price Ascending
+          Sort by Price
         </button>
       </div>
-      <div className="grid grid-cols-1 gap-0.5 bg-dark">
-        <div className="grid grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr] gap-0.5 bg-light-gray py-2">
-          <div className="text-center">Image</div>
-          <div className="text-center">Name</div>
-          <div className="text-center">Price</div>
-          <div className="text-center">Type</div>
-          <div className="text-center">Hitpoints</div>
-          <div className="text-center">Armor Class</div>
+      <div className="grid grid-cols-1 gap-0.5 bg-dark p-2">
+        <div className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr] gap-0.5 bg-light-gray py-2">
+          <div className="text-center cursor-pointer" onClick={() => sortItems('item_image')}>Image</div>
+          <div className="text-center cursor-pointer" onClick={() => sortItems('item_name')}>Name</div>
+          <div className="text-center cursor-pointer" onClick={() => sortItems('item_price')}>Price</div>
+          <div className="text-center cursor-pointer" onClick={() => sortItems('item_type')}>Type</div>
+          <div className="text-center cursor-pointer" onClick={() => sortItems('hitpoints')}>Hitpoints</div>
+          <div className="text-center cursor-pointer" onClick={() => sortItems('armor_class')}>Armor Class</div>
         </div>
         {filteredItems.map((item) => (
-          <div key={item.item_id} className="grid grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr] gap-0.5 items-center">
+          <div key={item.item_id} className="grid grid-cols-[auto_1fr_1fr_1fr_1fr_1fr] gap-0.5 items-center">
             <div className="flex justify-center bg-dark-gray">
-              <img src={item.item_image} alt={item.item_name} className="w-full object-contain" />
+              <img src={item.item_image} alt={item.item_name} className="h-24 w-full object-contain" />
             </div>
             <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.item_name}</div>
             <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">
