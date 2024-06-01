@@ -4,6 +4,8 @@ import ItemListNavbar from './ItemListNavbar';
 const ItemList = () => {
   const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -29,56 +31,72 @@ const ItemList = () => {
   };
 
   const filterByCategory = (category) => {
+    setSelectedCategory(category);
     if (category === 'All') {
       setFilteredItems(items);
     } else {
-      const filtered = items.filter(item => item.item_type === category);
+      const filtered = items.filter(item => item.category.toLowerCase() === category.toLowerCase());
       setFilteredItems(filtered);
     }
   };
 
+  const filterBySubCategory = (subCategory) => {
+    const filtered = items.filter(item =>
+      item.category.toLowerCase() === selectedCategory.toLowerCase() &&
+      (item.item_type.toLowerCase().includes(subCategory.toLowerCase()) || subCategory.toLowerCase().includes(item.item_type.toLowerCase()))
+    );
+    setFilteredItems(filtered);
+  };
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filtered = items.filter(item => item.item_name.toLowerCase().includes(query.toLowerCase()));
+    setFilteredItems(filtered);
+  };
+
   return (
     <div className="p-4 text-white w-80p">
-      <ItemListNavbar onCategorySelect={filterByCategory} />
+      <ItemListNavbar onCategorySelect={filterByCategory} onSubCategorySelect={filterBySubCategory} onSearch={handleSearch} />
       <h1 className="text-2xl font-bold my-4">Item List</h1>
       <div className="mb-4">
         <button
           onClick={() => sortItems('price-desc')}
-          className="mr-2 bg-transparent border border-light-gray text-white py-2 px-4 rounded hover:bg-light-gray"
+          className="mr-2 bg-transparent border border-light-gray text-white py-2 px-4 hover:bg-light-gray"
         >
           Sort by Price Descending
         </button>
         <button
           onClick={() => sortItems('price-asc')}
-          className="bg-transparent border border-light-gray text-white py-2 px-4 rounded hover:bg-light-gray"
+          className="bg-transparent border border-light-gray text-white py-2 px-4 hover:bg-light-gray"
         >
           Sort by Price Ascending
         </button>
       </div>
-      <table className="min-w-full bg-transparent text-white shadow-md rounded">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 border-b border-light-gray">Image</th>
-            <th className="py-2 px-4 border-b border-light-gray">Name</th>
-            <th className="py-2 px-4 border-b border-light-gray">Price</th>
-            <th className="py-2 px-4 border-b border-light-gray">Type</th>
-            <th className="py-2 px-4 border-b border-light-gray">Hitpoints</th>
-            <th className="py-2 px-4 border-b border-light-gray">Armor Class</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredItems.map((item) => (
-            <tr key={item.item_id} className="border-b border-light-gray">
-              <td className="py-2 px-4 text-center"><img src={item.item_image} alt={item.item_name} className=" h-32 object-cover rounded" /></td>
-              <td className="py-2 px-4 text-center">{item.item_name}</td>
-              <td className="py-2 px-4 text-center">{item.item_price}</td>
-              <td className="py-2 px-4 text-center">{item.item_type}</td>
-              <td className="py-2 px-4 text-center">{item.hitpoints}</td>
-              <td className="py-2 px-4 text-center">{item.armor_class}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="grid grid-cols-1 gap-0.5 bg-dark">
+        <div className="grid grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr] gap-0.5 bg-light-gray py-2">
+          <div className="text-center">Image</div>
+          <div className="text-center">Name</div>
+          <div className="text-center">Price</div>
+          <div className="text-center">Type</div>
+          <div className="text-center">Hitpoints</div>
+          <div className="text-center">Armor Class</div>
+        </div>
+        {filteredItems.map((item) => (
+          <div key={item.item_id} className="grid grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr] gap-0.5 items-center">
+            <div className="flex justify-center bg-dark-gray">
+              <img src={item.item_image} alt={item.item_name} className="w-full object-contain" />
+            </div>
+            <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.item_name}</div>
+            <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">
+              <img src="/img/currency/bonds.png" alt="Currency" className="h-6 w-6 mr-2" />
+              {item.item_price}
+            </div>
+            <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.item_type}</div>
+            <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.hitpoints}</div>
+            <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.armor_class}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
