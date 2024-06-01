@@ -28,3 +28,4 @@ yarn-error.log*
 .env
 
 /src/images
+public/img/asd.sql

@@ -69,7 +69,7 @@ const ItemList = () => {
         <tbody>
           {filteredItems.map((item) => (
             <tr key={item.item_id} className="border-b border-light-gray">
-              <td className="py-2 px-4 text-center"><img src={item.item_image} alt={item.item_name} className="w-16 h-16 object-cover rounded" /></td>
+              <td className="py-2 px-4 text-center"><img src={item.item_image} alt={item.item_name} className=" h-32 object-cover rounded" /></td>
               <td className="py-2 px-4 text-center">{item.item_name}</td>
               <td className="py-2 px-4 text-center">{item.item_price}</td>
               <td className="py-2 px-4 text-center">{item.item_type}</td>
