@@ -36,20 +36,20 @@ const ItemList = () => {
     setFilteredItems(sortedItems);
   };
 
-  const filterByCategory = (category) => {
-    setSelectedCategory(category);
-    if (category === 'All') {
+  const filterByCategory = (item_category) => {
+    setSelectedCategory(item_category);
+    if (item_category === 'All') {
       setFilteredItems(items);
     } else {
-      const filtered = items.filter(item => item.category.toLowerCase() === category.toLowerCase());
+      const filtered = items.filter(item => item.item_category.toLowerCase() === item_category.toLowerCase());
       setFilteredItems(filtered);
     }
   };
 
   const filterBySubCategory = (subCategory) => {
     const filtered = items.filter(item =>
-      item.category.toLowerCase() === selectedCategory.toLowerCase() &&
-      (item.item_type.toLowerCase().includes(subCategory.toLowerCase()) || subCategory.toLowerCase().includes(item.item_type.toLowerCase()))
+      item.item_category.toLowerCase() === selectedCategory.toLowerCase() &&
+      (item.item_sub_category.toLowerCase().includes(subCategory.toLowerCase()) || subCategory.toLowerCase().includes(item.item_sub_category.toLowerCase()))
     );
     setFilteredItems(filtered);
   };
@@ -77,7 +77,7 @@ const ItemList = () => {
           <div className="text-center cursor-pointer" onClick={() => sortItems('item_name')}>Name</div>
           <div className="text-center cursor-pointer" onClick={() => sortItems('item_price')}>Price</div>
           <div className="text-center cursor-pointer" onClick={() => sortItems('item_type')}>Type</div> 
-          <div className="text-center cursor-pointer" onClick={() => sortItems('hitpoints')}>Hitpoints</div>
+          <div className="text-center cursor-pointer" onClick={() => sortItems('durability')}>Durability</div>
           <div className="text-center cursor-pointer" onClick={() => sortItems('armor_class')}>Armor Class</div>
         </div>
         {filteredItems.map((item) => (
@@ -90,9 +90,9 @@ const ItemList = () => {
               <img src="/img/currency/bonds.png" alt="Currency" className="h-6 w-6 mr-2" />
               {item.item_price}
             </div>
-            <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.item_type}</div>
-            <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.hitpoints}</div>
-            <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.armor_class}</div>
+            <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.item_sub_category}</div>
+            <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.item_durability}</div>
+            <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.item_class}</div>
           </div>
         ))}
       </div>
