@@ -76,9 +76,9 @@ const ItemList = () => {
           <div className="text-center">Image</div>
           <div className="text-center cursor-pointer" onClick={() => sortItems('item_name')}>Name</div>
           <div className="text-center cursor-pointer" onClick={() => sortItems('item_price')}>Price</div>
-          <div className="text-center cursor-pointer" onClick={() => sortItems('item_type')}>Type</div> 
-          <div className="text-center cursor-pointer" onClick={() => sortItems('durability')}>Durability</div>
-          <div className="text-center cursor-pointer" onClick={() => sortItems('armor_class')}>Armor Class</div>
+          <div className="text-center cursor-pointer" onClick={() => sortItems('item_sub_category')}>Sub Category</div> 
+          <div className="text-center cursor-pointer" onClick={() => sortItems('item_durability')}>Durability</div>
+          <div className="text-center cursor-pointer" onClick={() => sortItems('item_class')}>Class</div>
         </div>
         {filteredItems.map((item) => (
           <div key={item.item_id} className="grid grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr] gap-0.5 items-center">
