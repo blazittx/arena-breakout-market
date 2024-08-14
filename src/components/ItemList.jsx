@@ -83,7 +83,7 @@ const ItemList = () => {
         {filteredItems.map((item) => (
           <div key={item.item_id} className="grid grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr] gap-0.5 items-center">
             <div className="flex justify-center bg-dark-gray">
-              <img src={item.item_image_url} alt={item.item_name} className="h-24 w-full object-contain" />
+              <img src={item.item_image_url} alt={item.item_name} className="h-full w-full object-contain" />
             </div>
             <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">{item.item_name}</div>
             <div className="text-center h-full align-middle flex justify-center items-center bg-dark-gray">
