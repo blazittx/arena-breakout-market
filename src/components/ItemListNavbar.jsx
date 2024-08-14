@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 
 const ItemListNavbar = ({ onCategorySelect, onSubCategorySelect, onSearch }) => {
   const categories = [
-    'Favorite', 'Keys', 'Barter', 'Containers', 'Provisions', 'Gear',
+    'Favorite', 'Keys', 'Barter', 'Containers', 'Provisions', 'Equipment',
     'Med', 'Sights', 'Suppressors', 'Weapon', 'Ammo', 'Magazines', 'Tactical devices', 'Weapon parts', 'Special equipment', 'Maps',
     'Ammo boxes', 'Currency', 'Repair', 'Not Functional', 'Quest items'
   ];
 
-  const gearSubCategories = [
+  const equipmentSubCategories = [
     'Backpacks', 'Unarmored Chest Rigs', 'Helmets', 'Masks', 'Headsets', 'Armored Rigs', 'Gas Masks', 'Body Armor', 'Thermal Imaging'
   ];
 
@@ -30,8 +30,8 @@ const ItemListNavbar = ({ onCategorySelect, onSubCategorySelect, onSearch }) => 
           className="mt-2 p-2 rounded bg-light-gray text-white w-full"
         />
         <div className="flex flex-wrap mt-4">
-          {selectedCategory === 'Gear' ? (
-            gearSubCategories.map(subCategory => (
+          {selectedCategory === 'Equipment' ? (
+            equipmentSubCategories.map(subCategory => (
               <button
                 key={subCategory}
                 onClick={() => onSubCategorySelect(subCategory)}
